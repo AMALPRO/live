@@ -6,11 +6,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y wget gnupg software-properties-common && \
-    apt-get install -y ffmpeg
+    apt-get install -y wget gnupg software-properties-common curl ffmpeg
 
 # Install Shaka Packager
-RUN wget -q -O - https://packages.shaka.org/ubuntu/gpg | apt-key add - && \
+RUN curl -s https://packages.shaka.org/ubuntu/gpg | apt-key add - && \
     echo "deb [arch=amd64] https://packages.shaka.org/ubuntu focal main" > /etc/apt/sources.list.d/shaka-packager.list && \
     apt-get update && \
     apt-get install -y packager
