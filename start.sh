@@ -1,6 +1,8 @@
 #!/bin/sh
 
-ffmpeg -i "http://145.239.5.177:8080/567/index.m3u8" \
+ffmpeg -i "https://segment.yuppcdn.net/110322/channel24/playlist.m3u8" \
+       -i watermark.png \   # Assuming watermark.png is in the same directory
+       -filter_complex "[0:v][1:v] overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/1.1" \
        -vf "scale=-2:1080" \
        -c:v libx264 -b:v 4500K \
        -c:a aac -b:a 128k \
