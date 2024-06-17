@@ -7,7 +7,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the FFmpeg script to the container
-COPY start.sh.sh /start.sh
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Set the command to run when the container starts
