@@ -7,6 +7,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the FFmpeg script to the container
-COPY run_ffmpeg.sh /start.sh
+COPY start.sh /start.sh
 RUN chmod +x /start.sh
 CMD ["./start.sh"]
