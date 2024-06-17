@@ -9,4 +9,4 @@ ffmpeg -re -fflags +genpts \
        -max_muxing_queue_size 1024 \
        -rw_timeout 10000000 \
        -strict -2 \
-       -f flv "rtmp://a.rtmp.youtube.com/live2/8vt3-84u0-kpcy-fk7r-cr49"
+       -f flv "rtmp://live.restream.io/live/re_8087088_bad11148233976dd9d57"
