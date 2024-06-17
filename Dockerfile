@@ -1,28 +1,14 @@
-# Use an Ubuntu base image
 FROM ubuntu:20.04
 
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Install dependencies
+# Install necessary dependencies
 RUN apt-get update && \
-    apt-get install -y wget gnupg software-properties-common curl ffmpeg
-
-# Install Shaka Packager
-RUN curl -s https://packages.shaka.org/ubuntu/gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://packages.shaka.org/ubuntu focal main" > /etc/apt/sources.list.d/shaka-packager.list && \
-    apt-get update && \
-    apt-get install -y packager
-
-# Clean up
-RUN apt-get clean && \
+    apt-get install -y ffmpeg && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy the script into the container
-COPY decrypt_and_stream.sh /usr/local/bin/decrypt_and_stream.sh
+# Copy the FFmpeg script to the container
+COPY run_ffmpeg.sh /run_ffmpeg.sh
+RUN chmod +x /run_ffmpeg.sh
 
-# Make the script executable
-RUN chmod +x /usr/local/bin/decrypt_and_stream.sh
-
-# Set the entry point to the script
-ENTRYPOINT ["/usr/local/bin/decrypt_and_stream.sh"]
+# Set the command to run when the container starts
+CMD ["./start.sh"]
