@@ -1,12 +1,17 @@
 #!/bin/sh
 
-ffmpeg -re -fflags +genpts \
-       -i "https://segment.yuppcdn.net/110322/channel24/playlist.m3u8" \
-       -vf "scale=-2:720, drawtext=text='watchasports.in':fontsize=36:fontcolor=white:x=(w-text_w)/2:y=(h-text_h-50)" \
-       -c:v libx264 -preset veryfast -tune zerolatency -crf 23 \
-       -c:a aac -b:a 128k \
-       -buffer_size 8192k \
-       -max_muxing_queue_size 1024 \
-       -rw_timeout 10000000 \
-       -strict -2 \
-       -f flv "rtmp://live.restream.io/live/re_8087088_bad11148233976dd9d57"
+while true
+do
+    ffmpeg -re -fflags +genpts \
+           -i "http://thunderbolt-40gbps.com/play/VSZx3MGCJpLbqnmI5wjgPBzuaa0kdmjV0U027_Fvcam-nHLL8BKS5m2JBotp0mi5" \
+           -vf "scale=-2:720, \
+    drawtext=text='watchasports.in':fontsize=38:fontcolor=white:x=(w-text_w)/2:y=(h-text_h-90), \
+    drawtext=text='watchasports':fontsize=25:fontcolor=white:x=(w-text_w-30):y=30" \
+           -c:v libx264 -preset veryfast -tune zerolatency -crf 23 \
+           -maxrate 2000k -bufsize 4000k \
+           -c:a aac -b:a 128k \
+           -f flv "rtmp://live.restream.io/live/re_8087709_93a2c94f3e471c11a179"
+
+    # Wait for 5 seconds before restarting if the command exits
+    sleep 5
+done
